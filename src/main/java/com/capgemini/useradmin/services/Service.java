@@ -2,14 +2,12 @@ package com.capgemini.useradmin.services;
 
 
 import com.capgemini.useradmin.exceptions.BadRequestException;
-import com.capgemini.useradmin.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 
 @org.springframework.stereotype.Service
 public abstract class Service<T> implements IService<T> {
 
-    @Autowired
-    Repository<T> repository;
+    CrudRepository<T, Long> repository;
 
     public Iterable<T> getAll() {
         return repository.findAll();
