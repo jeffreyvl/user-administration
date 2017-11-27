@@ -2,12 +2,10 @@ package com.capgemini.useradmin.model;
 
 import com.capgemini.useradmin.util.Shift;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class ScheduleEntry {
 
     @Id
