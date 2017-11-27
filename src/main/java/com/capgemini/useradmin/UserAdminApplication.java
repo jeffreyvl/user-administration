@@ -1,4 +1,4 @@
-package com.capgemini.user.admin.useradmin;
+package com.capgemini.useradmin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

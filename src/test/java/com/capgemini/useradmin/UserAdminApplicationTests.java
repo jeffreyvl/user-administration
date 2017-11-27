@@ -1,4 +1,4 @@
-package com.capgemini.user.admin.useradmin;
+package com.capgemini.useradmin;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
