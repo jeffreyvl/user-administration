@@ -19,15 +19,14 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public Iterable<User> getAll() {
         return userRepository.findAll();
     }
 
-
-    @RequestMapping(value = "{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/", method = RequestMethod.GET)
     public User get(@PathVariable long id) {
         User user = userRepository.findOne(id);
         if (user == null)
@@ -35,20 +34,20 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void add(@Valid @RequestBody User user) {
 
         userRepository.save(user);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@Valid @RequestBody User user) {
 
         userRepository.save(user);
     }
 
-    @RequestMapping(value = "{id}/", method = RequestMethod.DELETE)
-    public void del(@PathVariable long id) {
+    @RequestMapping(value = "/{id}/", method = RequestMethod.DELETE)
+    public void delete(@PathVariable long id) {
 
         userRepository.delete(id);
     }
@@ -64,7 +63,6 @@ public class UserController {
             errors.add(field.getDefaultMessage());
         }
         return errors;
-
     }
 }
 

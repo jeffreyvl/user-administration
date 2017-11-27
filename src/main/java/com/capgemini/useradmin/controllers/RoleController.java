@@ -7,21 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("api/roles/")
+@RequestMapping("api/roles")
 public class RoleController {
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public Iterable<Role> getAll() {
         return roleRepository.findAll();
     }
 
-
-    @RequestMapping(value = "{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/", method = RequestMethod.GET)
     public Role get(@PathVariable long id) {
         Role role = roleRepository.findOne(id);
         if (role == null)
@@ -29,20 +29,20 @@ public class RoleController {
         return role;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void add(@Valid @RequestBody Role role) {
 
         roleRepository.save(role);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@Valid @RequestBody Role role) {
 
         roleRepository.save(role);
     }
 
-    @RequestMapping(value = "{id}/", method = RequestMethod.DELETE)
-    public void del(@PathVariable long id) {
+    @RequestMapping(value = "/{id}/", method = RequestMethod.DELETE)
+    public void delete(@PathVariable long id) {
 
         roleRepository.delete(id);
     }

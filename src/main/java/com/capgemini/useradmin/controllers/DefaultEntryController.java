@@ -8,19 +8,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/default/")
+@RequestMapping("api/default-schedule/")
 public class DefaultEntryController {
 
     @Autowired
-    DefaultEntryRepository defaultEntryRepository;
+    private DefaultEntryRepository defaultEntryRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public Iterable<DefaultEntry> getAll() {
         return defaultEntryRepository.findAll();
     }
 
-
-    @RequestMapping(value = "{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/", method = RequestMethod.GET)
     public DefaultEntry get(@PathVariable long id) {
         DefaultEntry defaultEntry = defaultEntryRepository.findOne(id);
         if (defaultEntry == null)
@@ -28,20 +27,20 @@ public class DefaultEntryController {
         return defaultEntry;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void add(@Valid @RequestBody DefaultEntry defaultEntry) {
 
         defaultEntryRepository.save(defaultEntry);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@Valid @RequestBody DefaultEntry defaultEntry) {
 
         defaultEntryRepository.save(defaultEntry);
     }
 
-    @RequestMapping(value = "{id}/", method = RequestMethod.DELETE)
-    public void del(@PathVariable long id) {
+    @RequestMapping(value = "/{id}/", method = RequestMethod.DELETE)
+    public void delete(@PathVariable long id) {
 
         defaultEntryRepository.delete(id);
     }

@@ -12,15 +12,14 @@ import javax.validation.Valid;
 public class ScheduleEntryController {
 
     @Autowired
-    ScheduleEntryRepository scheduleEntryRepository;
+    private ScheduleEntryRepository scheduleEntryRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public Iterable<ScheduleEntry> getAll() {
         return scheduleEntryRepository.findAll();
     }
 
-
-    @RequestMapping(value = "{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/", method = RequestMethod.GET)
     public ScheduleEntry get(@PathVariable long id) {
         ScheduleEntry scheduleEntry = scheduleEntryRepository.findOne(id);
         if (scheduleEntry == null)
@@ -28,20 +27,20 @@ public class ScheduleEntryController {
         return scheduleEntry;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void add(@Valid @RequestBody ScheduleEntry scheduleEntry) {
 
         scheduleEntryRepository.save(scheduleEntry);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@Valid @RequestBody ScheduleEntry scheduleEntry) {
 
         scheduleEntryRepository.save(scheduleEntry);
     }
 
-    @RequestMapping(value = "{id}/", method = RequestMethod.DELETE)
-    public void del(@PathVariable long id) {
+    @RequestMapping(value = "/{id}/", method = RequestMethod.DELETE)
+    public void delete(@PathVariable long id) {
 
         scheduleEntryRepository.delete(id);
     }
