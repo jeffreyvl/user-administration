@@ -1,6 +1,7 @@
 package com.capgemini.useradmin.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -9,6 +10,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Pattern(regexp="/^[a-zA-Z]{1,15}$/",  message = "Invalid Name")
     private String name;
     @OneToMany
     private List<User> users;

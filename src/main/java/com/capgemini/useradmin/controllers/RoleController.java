@@ -18,14 +18,18 @@ public class RoleController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Role> getAll() {
+
         return roleRepository.findAll();
     }
 
     @RequestMapping(value = "/{id}/", method = RequestMethod.GET)
     public Role get(@PathVariable long id) {
+
         Role role = roleRepository.findOne(id);
+
         if (role == null)
             throw new BadRequestException();
+
         return role;
     }
 

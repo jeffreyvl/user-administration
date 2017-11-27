@@ -2,6 +2,7 @@ package com.capgemini.useradmin.model;
 
 import com.capgemini.useradmin.util.Shift;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 
 @Entity
@@ -10,7 +11,9 @@ public class DefaultEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotNull
     private DayOfWeek day;
+    @NotNull
     private Shift shift;
 
     @ManyToOne
