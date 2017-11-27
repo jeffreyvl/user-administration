@@ -3,6 +3,7 @@ package com.capgemini.useradmin.model;
 import com.capgemini.useradmin.util.Shift;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -11,7 +12,9 @@ public class ScheduleEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotNull
     private LocalDate date;
+    @NotNull
     private Shift shift;
 
     @ManyToOne

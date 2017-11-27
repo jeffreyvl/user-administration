@@ -16,15 +16,19 @@ public class ScheduleEntryController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<ScheduleEntry> getAll() {
+
         return scheduleEntryRepository.findAll();
     }
 
 
     @RequestMapping(value = "{id}/", method = RequestMethod.GET)
     public ScheduleEntry get(@PathVariable long id) {
+
         ScheduleEntry scheduleEntry = scheduleEntryRepository.findOne(id);
+
         if (scheduleEntry == null)
             throw new BadRequestException();
+
         return scheduleEntry;
     }
 

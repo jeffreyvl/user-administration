@@ -1,6 +1,10 @@
 package com.capgemini.useradmin.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -9,12 +13,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Pattern(regexp="/^[a-zA-Z]{2,20}$/",  message = "Invalid Name")
     private String name;
+    @Email(message = "Invalid email address")
     private String email;
     @OneToMany
     private List<DefaultEntry> defaultEntries;
     @OneToMany
     private List<ScheduleEntry> scheduleEntries;
+    @NotNull
     @OneToOne
     private Role role;
 

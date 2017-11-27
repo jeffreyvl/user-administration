@@ -23,15 +23,19 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<User> getAll() {
+
         return userRepository.findAll();
     }
 
 
     @RequestMapping(value = "{id}/", method = RequestMethod.GET)
     public User get(@PathVariable long id) {
+
         User user = userRepository.findOne(id);
+
         if (user == null)
             throw new BadRequestException();
+
         return user;
     }
 
@@ -64,7 +68,6 @@ public class UserController {
             errors.add(field.getDefaultMessage());
         }
         return errors;
-
     }
 }
 

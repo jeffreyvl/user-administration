@@ -16,15 +16,19 @@ public class DefaultEntryController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<DefaultEntry> getAll() {
+
         return defaultEntryRepository.findAll();
     }
 
 
     @RequestMapping(value = "{id}/", method = RequestMethod.GET)
     public DefaultEntry get(@PathVariable long id) {
+
         DefaultEntry defaultEntry = defaultEntryRepository.findOne(id);
+
         if (defaultEntry == null)
             throw new BadRequestException();
+
         return defaultEntry;
     }
 
