@@ -4,6 +4,8 @@ import com.capgemini.useradmin.model.Role;
 import com.capgemini.useradmin.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+
 @org.springframework.stereotype.Service
 public class RoleService extends Service<Role> {
 
@@ -13,5 +15,6 @@ public class RoleService extends Service<Role> {
     public RoleService(RoleRepository roleRepository) {
 
         repository = roleRepository;
+
     }
 }
