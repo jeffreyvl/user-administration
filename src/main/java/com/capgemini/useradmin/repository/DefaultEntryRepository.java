@@ -1,7 +1,9 @@
 package com.capgemini.useradmin.repository;
 
 import com.capgemini.useradmin.model.DefaultEntry;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-public interface DefaultEntryRepository extends CrudRepository<DefaultEntry, Long>{
+@Repository
+public interface DefaultEntryRepository extends PagingAndSortingRepository<DefaultEntry, Long> {
 }

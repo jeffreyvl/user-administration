@@ -1,7 +1,9 @@
 package com.capgemini.useradmin.repository;
 
 import com.capgemini.useradmin.model.Role;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-public interface RoleRepository extends CrudRepository<Role, Long> {
+@Repository
+public interface RoleRepository extends PagingAndSortingRepository<Role, Long> {
 }

@@ -2,15 +2,22 @@ package com.capgemini.useradmin.services;
 
 
 import com.capgemini.useradmin.exceptions.BadRequestException;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 @org.springframework.stereotype.Service
 public abstract class Service<T> implements IService<T> {
 
-    CrudRepository<T, Long> repository;
+    PagingAndSortingRepository<T, Long> repository;
 
     public Iterable<T> getAll() {
         return repository.findAll();
+    }
+
+    public Page<T> listAllByPage(Pageable pageable) {
+
+        return repository.findAll(pageable);
     }
 
     public T get(long id) {
