@@ -30,16 +30,20 @@ public class Seeder {
 
     public void seedUserTwan(){
         User user = new User();
-        user.setName("Twan");
+        user.setFirstName("Twan");
+        user.setLastName("Rosie");
+        user.setStartDate(LocalDate.now().minusDays(1));
         DefaultEntry defaultEntry = createDefaultEntry(user, DayOfWeek.THURSDAY, Shift.NIGHT);
-        ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.MORNING, LocalDate.now());
+        ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.AFTERNOON, LocalDate.now());
         Role role = createRole(user, "Manager");
         addServices(user, role, scheduleEntry, defaultEntry);
     }
 
     public void seedUserRamon(){
         User user = new User();
-        user.setName("Ramon");
+        user.setFirstName("Ramon");
+        user.setLastName("de Vaan");
+        user.setStartDate(LocalDate.now().minusDays(3));
         DefaultEntry defaultEntry = createDefaultEntry(user, DayOfWeek.TUESDAY, Shift.EVENING);
         ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.MORNING, LocalDate.now());
         Role role = createRole(user, "Receptionist");
@@ -48,7 +52,9 @@ public class Seeder {
 
     public void seedUserEmiel(){
         User user = new User();
-        user.setName("Emiel");
+        user.setFirstName("Emiel");
+        user.setLastName("van Rossum");
+        user.setStartDate(LocalDate.now().minusDays(6));
         DefaultEntry defaultEntry = createDefaultEntry(user, DayOfWeek.WEDNESDAY, Shift.MORNING);
         ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.MORNING, LocalDate.now() );
         Role role = createRole(user, "Kok");
@@ -57,21 +63,48 @@ public class Seeder {
 
     public void seedUserAydin(){
         User user = new User();
-        user.setName("Aydin");
+        user.setFirstName("Aydin");
+        user.setLastName("Erdas");
+        user.setStartDate(LocalDate.now().minusDays(9));
         DefaultEntry defaultEntry = createDefaultEntry(user, DayOfWeek.MONDAY, Shift.NIGHT);
         ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.MORNING, LocalDate.now());
-        Role role = createRole(user, "BUM");
+        Role role = createRole(user, "HouseKeeper");
         addServices(user, role, scheduleEntry, defaultEntry);
     }
 
     public void seedUserFrank(){
         User user = new User();
-        user.setName("Frank");
+        user.setFirstName("Frank");
+        user.setLastName("Noorloos");
+        user.setStartDate(LocalDate.now().minusDays(3));
         DefaultEntry defaultEntry = createDefaultEntry(user, DayOfWeek.THURSDAY, Shift.AFTERNOON);
-        ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.MORNING, LocalDate.now());
+        ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.NIGHT, LocalDate.now());
+        Role role = createRole(user, "Manager");
+        addServices(user, role, scheduleEntry, defaultEntry);
+    }
+
+    public void seedUserJeffrey(){
+        User user = new User();
+        user.setFirstName("Jeffrey");
+        user.setLastName("van Laarhoven");
+        user.setStartDate(LocalDate.now().minusDays(2));
+        DefaultEntry defaultEntry = createDefaultEntry(user, DayOfWeek.SUNDAY, Shift.MORNING);
+        ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.EVENING, LocalDate.now());
         Role role = createRole(user, "Receptionist");
         addServices(user, role, scheduleEntry, defaultEntry);
     }
+
+    public void seedUserChaouki(){
+        User user = new User();
+        user.setFirstName("Chaouki");
+        user.setLastName("Tiouassiouine");
+        user.setStartDate(LocalDate.now());
+        DefaultEntry defaultEntry = createDefaultEntry(user, DayOfWeek.TUESDAY, Shift.NIGHT);
+        ScheduleEntry scheduleEntry = createScheduleEntry(user, Shift.NIGHT, LocalDate.now());
+        Role role = createRole(user, "MasterChief");
+        addServices(user, role, scheduleEntry, defaultEntry);
+    }
+
 
     public Role createRole(User user, String roleName) {
         Role role = new Role();
