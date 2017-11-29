@@ -5,7 +5,7 @@ import com.capgemini.useradmin.repository.DefaultEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @org.springframework.stereotype.Service
-public class DefaultEntryService extends Service<DefaultEntry> {
+public class DefaultEntryService extends BaseService<DefaultEntry> {
 
     @Autowired
     DefaultEntryRepository defaultEntryRepository;

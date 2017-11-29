@@ -14,19 +14,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Pattern(regexp="/^[a-zA-Z]{2,20}$/",  message = "Invalid First Name")
+    @Pattern(regexp="^[\\p{L} .'-]+$",  message = "Invalid First Name")
     private String firstName;
-    @Pattern(regexp="/^[a-zA-Z]{2,20}$/",  message = "Invalid Last Name")
+    @Pattern(regexp="^[\\p{L} .'-]+$",  message = "Invalid Last Name")
     private String lastName;
     @Email(message = "Invalid email address")
     private String email;
-    @NotNull
     private LocalDate startDate;
     @OneToMany
     private List<DefaultEntry> defaultEntries;
     @OneToMany
     private List<ScheduleEntry> scheduleEntries;
-    @NotNull
     @ManyToOne
     private Role role;
 
