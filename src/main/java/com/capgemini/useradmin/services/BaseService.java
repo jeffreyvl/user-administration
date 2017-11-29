@@ -5,9 +5,10 @@ import com.capgemini.useradmin.exceptions.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Service;
 
-@org.springframework.stereotype.Service
-public abstract class Service<T> implements IService<T> {
+@Service
+public abstract class BaseService<T> implements IService<T> {
 
     PagingAndSortingRepository<T, Long> repository;
 
