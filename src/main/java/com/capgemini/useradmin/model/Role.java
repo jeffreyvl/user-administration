@@ -10,7 +10,6 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Pattern(regexp="/^[a-zA-Z]{1,15}$/",  message = "Invalid Name")
     private String name;
     @OneToMany
     private List<User> users;

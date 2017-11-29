@@ -9,12 +9,15 @@ import com.capgemini.useradmin.services.RoleService;
 import com.capgemini.useradmin.services.ScheduleEntryService;
 import com.capgemini.useradmin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.MapKeyColumn;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@Component
 public class Seeder {
 
     @Autowired
