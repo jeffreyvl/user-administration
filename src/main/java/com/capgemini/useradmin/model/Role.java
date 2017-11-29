@@ -41,4 +41,24 @@ public class Role {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (id != role.id) return false;
+        if (!name.equals(role.name)) return false;
+        return users.equals(role.users);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + users.hashCode();
+        return result;
+    }
 }
