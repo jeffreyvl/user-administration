@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -25,9 +26,9 @@ public class RoleController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<RoleViewModel> listAllByPage(Pageable pageable) {
+    public List<RoleViewModel> getAll() {
 
-        return service.listAllByPage(pageable);
+        return service.getAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)

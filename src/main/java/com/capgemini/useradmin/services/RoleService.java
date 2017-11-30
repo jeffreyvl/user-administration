@@ -8,9 +8,10 @@ import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RoleService{
@@ -24,12 +25,13 @@ public class RoleService{
         repository = roleRepository;
         modelMapper = new ModelMapper();
     }
-    public Page<RoleViewModel> listAllByPage(Pageable pageable) {
+    public List<RoleViewModel> getAll() {
 
-        Page<Role> pageOfDomain = repository.findAll(pageable);
-        Page<RoleViewModel> dtoPage = pageOfDomain.map(x -> modelMapper.map(x, RoleViewModel.class));
-
-        return dtoPage;
+        Iterable<Role> roles = repository.findAll();
+        List<RoleViewModel> model = new ArrayList<>();
+        for (Role role: roles)
+            model.add(modelMapper.map(role ,RoleViewModel.class));
+        return model;
     }
 
     public RoleViewModel get(long id) {
