@@ -43,6 +43,9 @@ public class RoleService {
     public RoleViewModel get(long id) {
 
         Role user = repository.findOne(id);
+        if (user == null) {
+            throw new BadRequestException();
+        }
         RoleViewModel dto = modelMapper.map(user, RoleViewModel.class);
 
         return dto;

@@ -26,7 +26,7 @@ public class RoleController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<RoleViewModel> getAll(Pageable pageable) {
+    public Page<RoleViewModel> listAllByPage(Pageable pageable) {
 
         return service.listAllByPage(pageable);
     }
