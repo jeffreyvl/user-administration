@@ -1,6 +1,7 @@
 package com.capgemini.useradmin.model.domain;
 
 import com.capgemini.useradmin.util.Shift;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 

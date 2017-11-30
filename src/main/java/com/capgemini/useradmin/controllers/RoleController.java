@@ -5,8 +5,6 @@ import com.capgemini.useradmin.model.view.role.RoleEditViewModel;
 import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,7 +15,7 @@ import java.util.List;
 @RequestMapping("api/roles")
 public class RoleController {
 
-    RoleService service;
+    private RoleService service;
 
     @Autowired
     public RoleController(RoleService service) {
@@ -44,7 +42,7 @@ public class RoleController {
     }
 
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void update(@Valid @RequestBody RoleEditViewModel model, @PathVariable long id) {
 
         service.save(model, id);
