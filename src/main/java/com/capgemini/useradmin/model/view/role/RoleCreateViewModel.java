@@ -1,4 +1,4 @@
-package com.capgemini.useradmin.model.domain.view;
+package com.capgemini.useradmin.model.view.role;
 
 import javax.validation.constraints.Pattern;
 

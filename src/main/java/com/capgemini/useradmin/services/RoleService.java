@@ -2,9 +2,9 @@ package com.capgemini.useradmin.services;
 
 import com.capgemini.useradmin.exceptions.BadRequestException;
 import com.capgemini.useradmin.model.domain.Role;
-import com.capgemini.useradmin.model.domain.view.RoleCreateViewModel;
-import com.capgemini.useradmin.model.domain.view.RoleEditViewModel;
-import com.capgemini.useradmin.model.domain.view.RoleViewModel;
+import com.capgemini.useradmin.model.view.role.RoleCreateViewModel;
+import com.capgemini.useradmin.model.view.role.RoleEditViewModel;
+import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

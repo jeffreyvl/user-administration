@@ -1,11 +1,8 @@
-package com.capgemini.useradmin.model.domain.view;
+package com.capgemini.useradmin.model.view.role;
 
-import javax.validation.constraints.Pattern;
-
-public class RoleEditViewModel {
+public class RoleViewModel {
 
     private long id;
-    @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid name.")
     private String name;
 
     public long getId() {

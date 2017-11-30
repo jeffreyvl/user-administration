@@ -1,8 +1,8 @@
 package com.capgemini.useradmin.controllers;
 
-import com.capgemini.useradmin.model.domain.view.UserCreateViewModel;
-import com.capgemini.useradmin.model.domain.view.UserEditViewModel;
-import com.capgemini.useradmin.model.domain.view.UserViewModel;
+import com.capgemini.useradmin.model.view.user.UserCreateViewModel;
+import com.capgemini.useradmin.model.view.user.UserEditViewModel;
+import com.capgemini.useradmin.model.view.user.UserViewModel;
 import com.capgemini.useradmin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

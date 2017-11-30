@@ -1,22 +1,28 @@
-package com.capgemini.useradmin.model.domain.view;
+package com.capgemini.useradmin.model.view.user;
 
 import org.hibernate.validator.constraints.Email;
-
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
 
-public class UserCreateViewModel {
 
+public class UserEditViewModel {
+
+    private long id;
     @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid first name.")
     private String firstName;
     @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid first name.")
     private String lastName;
     @Email(message = "Invalid email address")
     private String email;
-    @NotNull
-    private LocalDate startDate;
+
     private long roleId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -40,14 +46,6 @@ public class UserCreateViewModel {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public long getRoleId() {
