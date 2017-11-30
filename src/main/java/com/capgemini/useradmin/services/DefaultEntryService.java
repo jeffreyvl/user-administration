@@ -37,6 +37,9 @@ public class DefaultEntryService {
 
         List<DefaultEntry> defaultEntries = repository.findByUser(user);
         DefaultViewModel defaultViewModel = new DefaultViewModel();
+        defaultViewModel.setUserId(user.getId());
+        defaultViewModel.setFirstName(user.getFirstName());
+        defaultViewModel.setLastName(user.getLastName());
 
         for (DefaultEntry defaultEntry: defaultEntries) {
             defaultViewModel.add(defaultEntry);
