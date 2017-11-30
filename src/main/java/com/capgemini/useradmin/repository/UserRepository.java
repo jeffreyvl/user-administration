@@ -1,6 +1,6 @@
 package com.capgemini.useradmin.repository;
 
-import com.capgemini.useradmin.model.User;
+import com.capgemini.useradmin.model.domain.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

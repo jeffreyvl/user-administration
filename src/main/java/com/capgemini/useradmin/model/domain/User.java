@@ -1,33 +1,42 @@
-package com.capgemini.useradmin.model;
-
-import org.hibernate.validator.constraints.Email;
+package com.capgemini.useradmin.model.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Entity(name = "User")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Pattern(regexp="/^[a-zA-Z]{2,20}$/",  message = "Invalid First Name")
+
+
     private String firstName;
-    @Pattern(regexp="/^[a-zA-Z]{2,20}$/",  message = "Invalid Last Name")
+
     private String lastName;
-    @Email(message = "Invalid email address")
+
     private String email;
-    @NotNull
     private LocalDate startDate;
-    @OneToMany
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<DefaultEntry> defaultEntries;
-    @OneToMany
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<ScheduleEntry> scheduleEntries;
-    @NotNull
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public User() {
