@@ -12,6 +12,4 @@ import java.util.List;
 @Repository
 public interface RoleRepository extends PagingAndSortingRepository<Role, Long>, QueryByExampleExecutor<Role> {
 
-    List<Role> findByName(@Param("name") String name);
-
 }
