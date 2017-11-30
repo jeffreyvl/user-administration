@@ -30,6 +30,14 @@ public class RoleService {
         modelMapper = new ModelMapper();
     }
 
+    private Role getRole(long id) {
+
+        Role role = repository.findOne(id);
+        if (role == null)
+            throw new BadRequestException(String.format("No Role with id %d.", id));
+        return role;
+    }
+
     public Page<RoleViewModel> listAllByPage(Pageable pageable) {
 
         Page<Role> pageOfDomain = repository.findAll(pageable);
@@ -43,7 +51,7 @@ public class RoleService {
 
     public RoleViewModel get(long id) {
 
-        Role role = repository.findOne(id);
+        Role role = getRole(id);
         RoleViewModel dto = modelMapper.map(role, RoleViewModel.class);
 
         return dto;
@@ -63,9 +71,7 @@ public class RoleService {
 
     public void save(RoleEditViewModel model, long id) {
 
-        Role role = repository.findOne(model.getId());
-        if (role == null || model.getId() != id)
-            throw new BadRequestException();
+        Role role = getRole(id);
 
         role.setName(model.getName());
 
@@ -74,6 +80,7 @@ public class RoleService {
 
     public void delete(long id) {
 
+        getRole(id);
         repository.delete(id);
     }
 
@@ -81,7 +88,7 @@ public class RoleService {
         Role role = modelMapper.map(view, Role.class);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("id","users")
+                .withIgnorePaths("id", "users")
                 .withIncludeNullValues();
 
         Example<Role> example = Example.of(role, matcher);

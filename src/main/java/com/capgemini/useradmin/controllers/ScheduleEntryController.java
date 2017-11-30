@@ -14,4 +14,5 @@ public class ScheduleEntryController {
     public ScheduleEntryController(ScheduleEntryService service) {
         this.service = service;
     }
+
 }

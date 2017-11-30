@@ -39,5 +39,4 @@ public class DefaultEntryController {
         service.save(model);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
 }

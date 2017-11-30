@@ -5,10 +5,15 @@ import com.capgemini.useradmin.model.domain.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.DayOfWeek;
 import java.util.List;
 
 @Repository
 public interface DefaultEntryRepository extends PagingAndSortingRepository<DefaultEntry, Long> {
 
     List<DefaultEntry> findByUser(User user);
+
+    List<DefaultEntry> findByDay(DayOfWeek day);
+
+    Long countByDay(DayOfWeek day);
 }

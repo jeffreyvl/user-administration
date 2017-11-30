@@ -1,12 +1,10 @@
 package com.capgemini.useradmin.services;
 
-import com.capgemini.useradmin.exceptions.BadRequestException;
 import com.capgemini.useradmin.model.domain.DefaultEntry;
 import com.capgemini.useradmin.model.domain.User;
 import com.capgemini.useradmin.model.view.schedule.DefaultEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.DefaultViewModel;
 import com.capgemini.useradmin.repository.DefaultEntryRepository;
-import com.capgemini.useradmin.repository.UserRepository;
 import com.capgemini.useradmin.util.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +17,12 @@ import java.util.Map;
 public class DefaultEntryService {
 
     DefaultEntryRepository repository;
-    UserRepository userRepository;
-
+    UserService userService;
 
     @Autowired
-    public DefaultEntryService(DefaultEntryRepository repository, UserRepository userRepository) {
+    public DefaultEntryService(DefaultEntryRepository repository, UserService userService) {
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public void add(DefaultEntry entity) {
@@ -34,12 +31,10 @@ public class DefaultEntryService {
 
     public DefaultViewModel get(long id) {
 
-        User user = userRepository.findOne(id);
-
-        if (user == null)
-            throw new BadRequestException("User not found.");
+        User user = userService.getUser(id);
 
         List<DefaultEntry> defaultEntries = repository.findByUser(user);
+
         DefaultViewModel defaultViewModel = new DefaultViewModel();
         defaultViewModel.setUserId(user.getId());
         defaultViewModel.setFirstName(user.getFirstName());
@@ -54,10 +49,7 @@ public class DefaultEntryService {
 
     public void save(DefaultEditViewModel model) {
 
-        User user = userRepository.findOne(model.getUserId());
-        if (user == null) {
-            throw new BadRequestException();
-        }
+        User user = userService.getUser(model.getUserId());
 
         Map<DayOfWeek, Map<Shift, Boolean>> elements = model.getDefaultEntries();
         for (Map.Entry<DayOfWeek, Map<Shift, Boolean>> day : elements.entrySet()) {

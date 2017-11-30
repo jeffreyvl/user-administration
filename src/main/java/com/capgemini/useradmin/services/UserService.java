@@ -3,7 +3,6 @@ package com.capgemini.useradmin.services;
 import com.capgemini.useradmin.exceptions.BadRequestException;
 import com.capgemini.useradmin.model.domain.Role;
 import com.capgemini.useradmin.model.domain.User;
-import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.model.view.user.UserCreateViewModel;
 import com.capgemini.useradmin.model.view.user.UserEditViewModel;
 import com.capgemini.useradmin.model.view.user.UserViewModel;
@@ -34,6 +33,14 @@ public class UserService {
         modelMapper = new ModelMapper();
     }
 
+    public User getUser(long id) {
+
+        User user = repository.findOne(id);
+        if (user == null)
+            throw new BadRequestException(String.format("No user with id %d.", id));
+        return user;
+    }
+
     public Page<UserViewModel> listAllByPage(Pageable pageable) {
 
         Page<User> pageOfDomain = repository.findAll(pageable);
@@ -50,8 +57,10 @@ public class UserService {
 
     public UserViewModel get(long id) {
 
-        User user = repository.findOne(id);
+        User user = getUser(id);
+
         UserViewModel dto = modelMapper.map(user, UserViewModel.class);
+
         if (user.getRole() != null)
             dto.setRole(user.getRole().getName());
         return dto;
@@ -75,9 +84,7 @@ public class UserService {
 
     public void save(UserEditViewModel model, long id) {
 
-        User user = repository.findOne(model.getId());
-        if (user == null || model.getId() != id)
-            throw new BadRequestException();
+        User user = getUser(id);
 
         Role role = roleRepository.findOne(model.getRoleId());
         if (role != null && role.getId() != model.getRoleId())
@@ -92,10 +99,12 @@ public class UserService {
 
     public void delete(long id) {
 
+        getUser(id);
         repository.delete(id);
     }
 
     public List<UserViewModel> search(UserViewModel view) {
+
         User user = modelMapper.map(view, User.class);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
@@ -109,5 +118,4 @@ public class UserService {
 
         return list;
     }
-
 }
