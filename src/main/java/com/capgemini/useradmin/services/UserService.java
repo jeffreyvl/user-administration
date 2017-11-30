@@ -3,6 +3,7 @@ package com.capgemini.useradmin.services;
 import com.capgemini.useradmin.exceptions.BadRequestException;
 import com.capgemini.useradmin.model.domain.Role;
 import com.capgemini.useradmin.model.domain.User;
+import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.model.view.user.UserCreateViewModel;
 import com.capgemini.useradmin.model.view.user.UserEditViewModel;
 import com.capgemini.useradmin.model.view.user.UserViewModel;
@@ -10,9 +11,14 @@ import com.capgemini.useradmin.repository.RoleRepository;
 import com.capgemini.useradmin.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -87,6 +93,21 @@ public class UserService {
     public void delete(long id) {
 
         repository.delete(id);
+    }
+
+    public List<UserViewModel> search(UserViewModel view) {
+        User user = modelMapper.map(view, User.class);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("id");
+
+        Example<User> example = Example.of(user, matcher);
+        Iterable<User> users = repository.findAll(example);
+
+        List<UserViewModel> list = new ArrayList<>();
+        users.forEach(e -> list.add(modelMapper.map(e, UserViewModel.class)));
+
+        return list;
     }
 
 }

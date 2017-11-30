@@ -8,6 +8,8 @@ import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,6 @@ public class RoleService {
             RoleViewModel dto = this.modelMapper.map(x, RoleViewModel.class);
             return dto;
         });
-
         return dtoPage;
     }
 
@@ -74,6 +75,22 @@ public class RoleService {
     public void delete(long id) {
 
         repository.delete(id);
+    }
+
+    public List<RoleViewModel> search(RoleViewModel view) {
+        Role role = modelMapper.map(view, Role.class);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("id","users")
+                .withIncludeNullValues();
+
+        Example<Role> example = Example.of(role, matcher);
+        Iterable<Role> roles = repository.findAll(example);
+
+        List<RoleViewModel> list = new ArrayList<>();
+        roles.forEach(e -> list.add(modelMapper.map(e, RoleViewModel.class)));
+
+        return list;
     }
 
 }

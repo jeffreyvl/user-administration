@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -54,6 +55,13 @@ public class UserController {
 
         service.delete(id);
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public List<UserViewModel> search(@Valid @RequestBody UserViewModel view) {
+
+        return service.search(view);
+    }
+
 }
 
 
