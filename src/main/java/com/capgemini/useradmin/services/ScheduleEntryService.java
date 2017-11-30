@@ -1,18 +1,22 @@
 package com.capgemini.useradmin.services;
 
-import com.capgemini.useradmin.model.domain.ScheduleEntry;
-import com.capgemini.useradmin.repository.ScheduleEntryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+        import com.capgemini.useradmin.model.domain.ScheduleEntry;
+        import com.capgemini.useradmin.repository.ScheduleEntryRepository;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Service;
 
 @Service
-public class ScheduleEntryService extends BaseService<ScheduleEntry> {
+public class ScheduleEntryService {
+
+    ScheduleEntryRepository repository;
 
     @Autowired
-    ScheduleEntryRepository scheduleEntryRepository;
+    public ScheduleEntryService(ScheduleEntryRepository repository) {
+        this.repository = repository;
+    }
 
-    public ScheduleEntryService(ScheduleEntryRepository scheduleEntryRepository) {
+    public void add(ScheduleEntry entity) {
 
-        repository = scheduleEntryRepository;
+        repository.save(entity);
     }
 }
