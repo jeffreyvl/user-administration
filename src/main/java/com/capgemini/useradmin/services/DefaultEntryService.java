@@ -18,4 +18,8 @@ public class DefaultEntryService {
     public void add(DefaultEntry entity) {
         repository.save(entity);
     }
+
+    public void get(long id) {
+
+    }
 }

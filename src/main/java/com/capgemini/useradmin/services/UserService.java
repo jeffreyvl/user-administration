@@ -31,6 +31,7 @@ public class UserService {
     public Page<UserViewModel> listAllByPage(Pageable pageable) {
 
         Page<User> pageOfDomain = repository.findAll(pageable);
+
         Page<UserViewModel> dtoPage = pageOfDomain.map(x -> {
             UserViewModel dto = this.modelMapper.map(x, UserViewModel.class);
             if (x.getRole() != null)
