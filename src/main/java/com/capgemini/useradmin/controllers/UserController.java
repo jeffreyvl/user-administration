@@ -57,9 +57,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public List<UserViewModel> search(@Valid @RequestBody UserViewModel model) {
+    public List<UserViewModel> search(@Valid @RequestBody UserViewModel view) {
 
-        return service.search(model);
+        return service.search(view);
     }
 
 }

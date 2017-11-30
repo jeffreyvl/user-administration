@@ -75,15 +75,14 @@ public class RoleService {
         repository.delete(id);
     }
 
-    public List<RoleViewModel> search(String name) {
-        Role dummy = new Role();
-        dummy.setName(name);
+    public List<RoleViewModel> search(RoleViewModel view) {
+        Role role = modelMapper.map(view, Role.class);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnorePaths("id","users")
                 .withIncludeNullValues();
 
-        Example<Role> example = Example.of(dummy, matcher);
+        Example<Role> example = Example.of(role, matcher);
         Iterable<Role> roles = repository.findAll(example);
 
         List<RoleViewModel> list = new ArrayList<>();

@@ -95,12 +95,11 @@ public class UserService {
         repository.delete(id);
     }
 
-    public List<UserViewModel> search(UserViewModel model) {
-        User user = modelMapper.map(model, User.class);
+    public List<UserViewModel> search(UserViewModel view) {
+        User user = modelMapper.map(view, User.class);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("id")
-                .withIncludeNullValues();
+                .withIgnorePaths("id");
 
         Example<User> example = Example.of(user, matcher);
         Iterable<User> users = repository.findAll(example);

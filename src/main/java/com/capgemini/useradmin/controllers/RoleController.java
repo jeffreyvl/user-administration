@@ -54,8 +54,8 @@ public class RoleController {
         service.delete(id);
     }
 
-    @RequestMapping(value = "/search/{name}", method = RequestMethod.GET)
-    public List<RoleViewModel> search(@PathVariable String name) {
-        return service.search(name);
+    @RequestMapping(value = "/search/", method = RequestMethod.POST)
+    public List<RoleViewModel> search(@Valid @RequestBody RoleViewModel view) {
+        return service.search(view);
     }
 }
