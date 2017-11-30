@@ -30,7 +30,7 @@ public class Seeder {
 
     public void seedUsers(){
         createUser("Kok","Twan","Rozay", LocalDate.now().minusDays(2), DayOfWeek.MONDAY, Shift.AFTERNOON, Shift.AFTERNOON, LocalDate.now().minusDays(2));
-        createUser("Kok","Ramon","Vaan de", LocalDate.now().minusDays(10), DayOfWeek.SATURDAY, Shift.MORNING, Shift.AFTERNOON, LocalDate.now().minusDays(2));
+        createUser("Astronomically small Kok","Ramon","Vaan de", LocalDate.now().minusDays(10), DayOfWeek.SATURDAY, Shift.MORNING, Shift.AFTERNOON, LocalDate.now().minusDays(2));
         createUser("Big Cock","Aydin","Erdas", LocalDate.now().minusDays(1), DayOfWeek.THURSDAY, Shift.NIGHT, Shift.MORNING, LocalDate.now().minusDays(2));
         createUser("Massive Kok","Emiel","Rossem van", LocalDate.now().minusDays(1), DayOfWeek.TUESDAY, Shift.AFTERNOON, Shift.EVENING, LocalDate.now().minusDays(2));
         createUser("Kok","Frank","Noorloos", LocalDate.now().minusDays(6), DayOfWeek.WEDNESDAY, Shift.NIGHT, Shift.NIGHT, LocalDate.now().minusDays(2));
