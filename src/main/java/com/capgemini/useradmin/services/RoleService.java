@@ -10,12 +10,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RoleService {
@@ -30,13 +30,15 @@ public class RoleService {
         modelMapper = new ModelMapper();
     }
 
-    public List<RoleViewModel> getAll() {
+    public Page<RoleViewModel> listAllByPage(Pageable pageable) {
 
-        Iterable<Role> roles = repository.findAll();
-        List<RoleViewModel> model = new ArrayList<>();
-        for (Role role : roles)
-            model.add(modelMapper.map(role, RoleViewModel.class));
-        return model;
+        Page<Role> pageOfDomain = repository.findAll(pageable);
+
+        Page<RoleViewModel> dtoPage = pageOfDomain.map(x -> {
+            RoleViewModel dto = this.modelMapper.map(x, RoleViewModel.class);
+            return dto;
+        });
+        return dtoPage;
     }
 
     public RoleViewModel get(long id) {
