@@ -8,13 +8,15 @@ import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class RoleService{
+public class RoleService {
 
     private RoleRepository repository;
     private ModelMapper modelMapper;
@@ -25,13 +27,17 @@ public class RoleService{
         repository = roleRepository;
         modelMapper = new ModelMapper();
     }
-    public List<RoleViewModel> getAll() {
 
-        Iterable<Role> roles = repository.findAll();
-        List<RoleViewModel> model = new ArrayList<>();
-        for (Role role: roles)
-            model.add(modelMapper.map(role ,RoleViewModel.class));
-        return model;
+    public Page<RoleViewModel> listAllByPage(Pageable pageable) {
+
+        Page<Role> pageOfDomain = repository.findAll(pageable);
+
+        Page<RoleViewModel> dtoPage = pageOfDomain.map(x -> {
+            RoleViewModel dto = this.modelMapper.map(x, RoleViewModel.class);
+            return dto;
+        });
+
+        return dtoPage;
     }
 
     public RoleViewModel get(long id) {
