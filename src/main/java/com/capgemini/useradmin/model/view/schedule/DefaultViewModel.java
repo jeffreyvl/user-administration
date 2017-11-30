@@ -1,5 +1,6 @@
 package com.capgemini.useradmin.model.view.schedule;
 
+import com.capgemini.useradmin.model.domain.DefaultEntry;
 import com.capgemini.useradmin.util.Shift;
 
 import java.time.DayOfWeek;
@@ -24,6 +25,10 @@ public class DefaultViewModel {
         }
     }
 
+    public void add(DefaultEntry defaultEntry) {
+
+        defaultEntries.get(defaultEntry.getDay()).put(defaultEntry.getShift(), true);
+    }
     public Map<DayOfWeek, Map<Shift, Boolean>> getDefaultEntries() {
         return defaultEntries;
     }
