@@ -1,9 +1,9 @@
 package com.capgemini.useradmin.util;
 
-import com.capgemini.useradmin.model.DefaultEntry;
-import com.capgemini.useradmin.model.Role;
-import com.capgemini.useradmin.model.ScheduleEntry;
-import com.capgemini.useradmin.model.User;
+import com.capgemini.useradmin.model.domain.DefaultEntry;
+import com.capgemini.useradmin.model.domain.Role;
+import com.capgemini.useradmin.model.domain.ScheduleEntry;
+import com.capgemini.useradmin.model.domain.User;
 import com.capgemini.useradmin.services.DefaultEntryService;
 import com.capgemini.useradmin.services.RoleService;
 import com.capgemini.useradmin.services.ScheduleEntryService;
@@ -11,7 +11,6 @@ import com.capgemini.useradmin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.MapKeyColumn;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.capgemini.useradmin.services;
 
-import com.capgemini.useradmin.model.ScheduleEntry;
+import com.capgemini.useradmin.model.domain.ScheduleEntry;
 import com.capgemini.useradmin.repository.ScheduleEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

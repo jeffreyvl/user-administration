@@ -1,6 +1,6 @@
 package com.capgemini.useradmin.repository;
 
-import com.capgemini.useradmin.model.ScheduleEntry;
+import com.capgemini.useradmin.model.domain.ScheduleEntry;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

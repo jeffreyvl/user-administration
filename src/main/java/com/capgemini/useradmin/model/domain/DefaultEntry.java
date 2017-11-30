@@ -1,26 +1,25 @@
-package com.capgemini.useradmin.model;
+package com.capgemini.useradmin.model.domain;
 
 import com.capgemini.useradmin.util.Shift;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 
 @Entity
-public class ScheduleEntry {
+public class DefaultEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @NotNull
-    private LocalDate date;
-    @NotNull
+
+    private DayOfWeek day;
+
     private Shift shift;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public ScheduleEntry() {
+    public DefaultEntry() {
     }
 
     public long getId() {
@@ -31,12 +30,12 @@ public class ScheduleEntry {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public DayOfWeek getDay() {
+        return day;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDay(DayOfWeek day) {
+        this.day = day;
     }
 
     public Shift getShift() {

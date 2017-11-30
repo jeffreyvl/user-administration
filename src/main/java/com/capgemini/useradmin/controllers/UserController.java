@@ -1,37 +1,59 @@
 package com.capgemini.useradmin.controllers;
 
-import com.capgemini.useradmin.model.User;
+import com.capgemini.useradmin.model.domain.view.UserCreateViewModel;
+import com.capgemini.useradmin.model.domain.view.UserEditViewModel;
+import com.capgemini.useradmin.model.domain.view.UserViewModel;
 import com.capgemini.useradmin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 
 
 @RestController
 @RequestMapping("api/users")
-public class UserController extends Controller<User>{
+public class UserController {
+
+    UserService service;
 
     @Autowired
-    UserService userService;
-
-    public UserController(UserService userService) {
-        service = userService;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
-    @Override
-    @RequestMapping(value="/all" , method = RequestMethod.GET)
-    public Iterable<User> getAll() {
-        Iterable<User> users = service.getAll();
-        List<User> userList = new ArrayList<>();
-        users.forEach(userList::add);
-        userList.forEach(u -> {
-            u.getRole().setUsers(new ArrayList<>());
-            u.getDefaultEntries().forEach(d -> d.setUser(null));
-            u.getScheduleEntries().forEach(s -> s.setUser(null));
-        });
-        return userList;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public Page<UserViewModel> listAllByPage(Pageable pageable) {
+
+        return service.listAllByPage(pageable);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public void add(@Valid @RequestBody UserCreateViewModel model) {
+
+        service.add(model);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public UserViewModel get(@PathVariable long id) {
+
+       return service.get(id);
+    }
+
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    public void update(@Valid @RequestBody UserEditViewModel model, @PathVariable long id) {
+
+        service.save(model, id);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable long id) {
+
+        service.delete(id);
     }
 }
+
 
