@@ -5,8 +5,6 @@ import com.capgemini.useradmin.model.view.role.RoleEditViewModel;
 import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,7 +42,7 @@ public class RoleController {
     }
 
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void update(@Valid @RequestBody RoleEditViewModel model, @PathVariable long id) {
 
         service.save(model, id);
@@ -54,5 +52,10 @@ public class RoleController {
     public void delete(@PathVariable long id) {
 
         service.delete(id);
+    }
+
+    @RequestMapping(value = "/search/{name}", method = RequestMethod.GET)
+    public List<RoleViewModel> search(@PathVariable String name) {
+        return service.search(name);
     }
 }
