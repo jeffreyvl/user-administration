@@ -42,8 +42,8 @@ public class RoleService {
 
     public RoleViewModel get(long id) {
 
-        Role user = repository.findOne(id);
-        RoleViewModel dto = modelMapper.map(user, RoleViewModel.class);
+        Role role = repository.findOne(id);
+        RoleViewModel dto = modelMapper.map(role, RoleViewModel.class);
 
         return dto;
     }

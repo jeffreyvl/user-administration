@@ -44,7 +44,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public void update(@Valid @RequestBody UserEditViewModel model, @PathVariable long id) {
+    public void save(@Valid @RequestBody UserEditViewModel model, @PathVariable long id) {
 
         service.save(model, id);
     }

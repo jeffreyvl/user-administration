@@ -26,7 +26,7 @@ public class RoleController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<RoleViewModel> getAll(Pageable pageable) {
+    public Page<RoleViewModel> listAllByPage(Pageable pageable) {
 
         return service.listAllByPage(pageable);
     }
@@ -45,7 +45,7 @@ public class RoleController {
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@Valid @RequestBody RoleEditViewModel model, @PathVariable long id) {
+    public void save(@Valid @RequestBody RoleEditViewModel model, @PathVariable long id) {
 
         service.save(model, id);
     }
