@@ -14,6 +14,4 @@ public interface DefaultEntryRepository extends PagingAndSortingRepository<Defau
     List<DefaultEntry> findByUser(User user);
 
     List<DefaultEntry> findByDay(DayOfWeek day);
-
-    Long countByDay(DayOfWeek day);
 }

@@ -1,10 +1,10 @@
 package com.capgemini.useradmin.model.view.schedule;
 
 import com.capgemini.useradmin.model.domain.ScheduleEntry;
+import com.capgemini.useradmin.util.HelperMethods;
 import com.capgemini.useradmin.util.Shift;
 
 import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,14 +16,9 @@ public class ScheduleViewModel {
 
     private Map<LocalDate, Map<Shift, Boolean>> scheduleEntries;
 
-    public ScheduleViewModel(int year, int week) {
+    public ScheduleViewModel(LocalDate date) {
 
         scheduleEntries = new HashMap<>();
-
-        LocalDate date = LocalDate.of(year, 7, 1);
-        date = date.with(WeekFields.ISO.weekOfWeekBasedYear(), week);
-        date = date.with(WeekFields.ISO.dayOfWeek(), 1);
-
         for (int i = 0; i < 7; i++) {
 
             scheduleEntries.put(date.plusDays(i), new HashMap<>());
