@@ -5,6 +5,8 @@ import com.capgemini.useradmin.model.view.role.RoleEditViewModel;
 import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,9 +26,9 @@ public class RoleController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<RoleViewModel> getAll() {
+    public Page<RoleViewModel> getAll(Pageable pageable) {
 
-        return service.getAll();
+        return service.listAllByPage(pageable);
     }
 
     @RequestMapping(method = RequestMethod.POST)
