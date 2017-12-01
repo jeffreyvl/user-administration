@@ -8,6 +8,8 @@ import com.capgemini.useradmin.model.view.role.RoleViewModel;
 import com.capgemini.useradmin.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,14 @@ public class RoleService {
         modelMapper = new ModelMapper();
     }
 
+    private Role getRole(long id) {
+
+        Role role = repository.findOne(id);
+        if (role == null)
+            throw new BadRequestException(String.format("No Role with id %d.", id));
+        return role;
+    }
+
     public Page<RoleViewModel> listAllByPage(Pageable pageable) {
 
         Page<Role> pageOfDomain = repository.findAll(pageable);
@@ -36,17 +46,13 @@ public class RoleService {
             RoleViewModel dto = this.modelMapper.map(x, RoleViewModel.class);
             return dto;
         });
-
         return dtoPage;
     }
 
     public RoleViewModel get(long id) {
 
-        Role user = repository.findOne(id);
-        if (user == null) {
-            throw new BadRequestException();
-        }
-        RoleViewModel dto = modelMapper.map(user, RoleViewModel.class);
+        Role role = getRole(id);
+        RoleViewModel dto = modelMapper.map(role, RoleViewModel.class);
 
         return dto;
     }
@@ -65,9 +71,7 @@ public class RoleService {
 
     public void save(RoleEditViewModel model, long id) {
 
-        Role role = repository.findOne(model.getId());
-        if (role == null || model.getId() != id)
-            throw new BadRequestException();
+        Role role = getRole(id);
 
         role.setName(model.getName());
 
@@ -76,7 +80,24 @@ public class RoleService {
 
     public void delete(long id) {
 
+        getRole(id);
         repository.delete(id);
+    }
+
+    public List<RoleViewModel> search(RoleViewModel view) {
+        Role role = modelMapper.map(view, Role.class);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("id", "users")
+                .withIncludeNullValues();
+
+        Example<Role> example = Example.of(role, matcher);
+        Iterable<Role> roles = repository.findAll(example);
+
+        List<RoleViewModel> list = new ArrayList<>();
+        roles.forEach(e -> list.add(modelMapper.map(e, RoleViewModel.class)));
+
+        return list;
     }
 
 }

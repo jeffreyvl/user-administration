@@ -3,13 +3,15 @@ package com.capgemini.useradmin.model.domain;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "Role")
+@Table(name = "role")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name ="id")
     private long id;
-
+    @Column(name="name")
     private String name;
 
     @OneToMany(
@@ -63,5 +65,14 @@ public class Role {
         result = 31 * result + name.hashCode();
         result = 31 * result + users.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

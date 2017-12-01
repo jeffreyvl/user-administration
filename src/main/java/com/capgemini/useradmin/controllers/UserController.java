@@ -7,9 +7,12 @@ import com.capgemini.useradmin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -31,9 +34,10 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void add(@Valid @RequestBody UserCreateViewModel model) {
+    public ResponseEntity add(@Valid @RequestBody UserCreateViewModel model) {
 
         service.add(model);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -44,16 +48,25 @@ public class UserController {
 
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public void update(@Valid @RequestBody UserEditViewModel model, @PathVariable long id) {
+    public ResponseEntity save(@Valid @RequestBody UserEditViewModel model, @PathVariable long id) {
 
         service.save(model, id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable long id) {
+    public ResponseEntity delete(@PathVariable long id) {
 
         service.delete(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public List<UserViewModel> search(@Valid @RequestBody UserViewModel view) {
+
+        return service.search(view);
+    }
+
 }
 
 
