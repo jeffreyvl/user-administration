@@ -10,9 +10,14 @@ import com.capgemini.useradmin.repository.RoleRepository;
 import com.capgemini.useradmin.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -28,9 +33,18 @@ public class UserService {
         modelMapper = new ModelMapper();
     }
 
+    public User getUser(long id) {
+
+        User user = repository.findOne(id);
+        if (user == null)
+            throw new BadRequestException(String.format("No user with id %d.", id));
+        return user;
+    }
+
     public Page<UserViewModel> listAllByPage(Pageable pageable) {
 
         Page<User> pageOfDomain = repository.findAll(pageable);
+
         Page<UserViewModel> dtoPage = pageOfDomain.map(x -> {
             UserViewModel dto = this.modelMapper.map(x, UserViewModel.class);
             if (x.getRole() != null)
@@ -43,8 +57,10 @@ public class UserService {
 
     public UserViewModel get(long id) {
 
-        User user = repository.findOne(id);
+        User user = getUser(id);
+
         UserViewModel dto = modelMapper.map(user, UserViewModel.class);
+
         if (user.getRole() != null)
             dto.setRole(user.getRole().getName());
         return dto;
@@ -68,9 +84,7 @@ public class UserService {
 
     public void save(UserEditViewModel model, long id) {
 
-        User user = repository.findOne(model.getId());
-        if (user == null || model.getId() != id)
-            throw new BadRequestException();
+        User user = getUser(id);
 
         Role role = roleRepository.findOne(model.getRoleId());
         if (role != null && role.getId() != model.getRoleId())
@@ -85,7 +99,23 @@ public class UserService {
 
     public void delete(long id) {
 
+        getUser(id);
         repository.delete(id);
     }
 
+    public List<UserViewModel> search(UserViewModel view) {
+
+        User user = modelMapper.map(view, User.class);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("id");
+
+        Example<User> example = Example.of(user, matcher);
+        Iterable<User> users = repository.findAll(example);
+
+        List<UserViewModel> list = new ArrayList<>();
+        users.forEach(e -> list.add(modelMapper.map(e, UserViewModel.class)));
+
+        return list;
+    }
 }
