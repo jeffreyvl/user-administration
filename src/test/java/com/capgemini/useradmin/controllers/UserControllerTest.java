@@ -81,7 +81,7 @@ public class UserControllerTest {
     public void updateUser() {
         final long id = 1;
         UserEditViewModel uEVM = new UserEditViewModel();
-        userController.update(uEVM, id);
+        userController.save(uEVM, id);
         ArgumentCaptor<UserEditViewModel> argument = ArgumentCaptor.forClass(UserEditViewModel.class);
         ArgumentCaptor<Long> longArg = ArgumentCaptor.forClass(Long.class);
         verify(userService, times(1)).save(argument.capture(), longArg.capture());

@@ -76,7 +76,7 @@ public class RoleControllerTest {
         RoleEditViewModel role = new RoleEditViewModel();
         role.setName("Pipo");
         role.setId(id);
-        roleController.update(role, id);
+        roleController.save(role, id);
         ArgumentCaptor<RoleEditViewModel> argument = ArgumentCaptor.forClass(RoleEditViewModel.class);
         ArgumentCaptor<Long> longArg = ArgumentCaptor.forClass(Long.class);
         verify(roleService, times(1)).save(argument.capture(), longArg.capture());
