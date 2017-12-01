@@ -1,9 +1,7 @@
 package com.capgemini.useradmin.model.view.schedule;
 
 import com.capgemini.useradmin.model.domain.ScheduleEntry;
-import com.capgemini.useradmin.util.HelperMethods;
 import com.capgemini.useradmin.util.Shift;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;

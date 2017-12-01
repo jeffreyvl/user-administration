@@ -178,7 +178,7 @@ public class ScheduleEntryService {
         if (!shift.getValue()) {
             ScheduleEntry scheduleEntry = repository.findByUserAndShiftAndDate(user, shift.getKey(), date);
             if (scheduleEntry != null)
-                repository.delete(scheduleEntry.getId());
+                repository.delete(scheduleEntry);
         }
     }
 
