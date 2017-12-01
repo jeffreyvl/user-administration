@@ -64,6 +64,7 @@ public class DefaultEntryService {
 
                     repository.save(entry);
                 }
+
                 if (!shift.getValue()) {
                     DefaultEntry defaultEntry = repository.findByUserAndShiftAndDay(user,shift.getKey(),day.getKey());
                     if (defaultEntry != null)

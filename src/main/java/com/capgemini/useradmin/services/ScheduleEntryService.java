@@ -3,6 +3,7 @@ package com.capgemini.useradmin.services;
 import com.capgemini.useradmin.model.domain.DefaultEntry;
 import com.capgemini.useradmin.model.domain.ScheduleEntry;
 import com.capgemini.useradmin.model.domain.User;
+import com.capgemini.useradmin.model.view.schedule.ScheduleDayViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
 import com.capgemini.useradmin.repository.DefaultEntryRepository;
 import com.capgemini.useradmin.repository.ScheduleEntryRepository;
@@ -51,7 +52,9 @@ public class ScheduleEntryService {
         }
     }
 
-    public void generateWeek(LocalDate date) {
+    public void generateWeek(int year, int week) {
+
+        LocalDate date = HelperMethods.getDateFirstDay(year, week);
 
         if (date.getDayOfWeek() != DayOfWeek.MONDAY) {
             TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
@@ -100,6 +103,29 @@ public class ScheduleEntryService {
             listModel.add(model);
         }
 
+        return listModel;
+    }
+
+    public List<ScheduleDayViewModel> getDay (LocalDate date) {
+
+        if (repository.countByDate(date) == 0)
+            generate(date);
+
+        Iterable<User> userList = userRepository.findAll();
+        List<ScheduleDayViewModel> listModel = new ArrayList<>();
+        for (User user: userList) {
+
+            List<ScheduleEntry> scheduleEntries = repository.findByUserAndDate(user, date);
+            ScheduleDayViewModel model = new ScheduleDayViewModel(date);
+
+            model.setFirstName(user.getFirstName());
+            model.setLastName(user.getLastName());
+            model.setUserId(user.getId());
+
+            for (ScheduleEntry scheduleEntry: scheduleEntries)
+                model.add(scheduleEntry);
+            listModel.add(model);
+        }
         return listModel;
     }
 
