@@ -116,7 +116,13 @@ public class UserService {
         Example<User> example = Example.of(user, matcher);
         Page<User> users = repository.findAll(example, pageable);
 
-        return users.map(e -> this.modelMapper.map(e, UserViewModel.class));
+        return users.map(e -> {
+            UserViewModel model = this.modelMapper.map(e, UserViewModel.class);
+            if (e.getRole() != null) {
+                model.setRole(e.getRole().getName());
+            }
+            return model;
+        });
     }
 
     public Iterable<User> findAll() {
