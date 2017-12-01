@@ -61,7 +61,13 @@ public class DefaultEntryService {
                     entry.setDay(day.getKey());
                     entry.setShift(shift.getKey());
                     entry.setUser(user);
+
                     repository.save(entry);
+                }
+                if (!shift.getValue()) {
+                    DefaultEntry defaultEntry = repository.findByUserAndShiftAndDay(user,shift.getKey(),day.getKey());
+                    if (defaultEntry != null)
+                        repository.delete(defaultEntry.getId());
                 }
             }
         }

@@ -87,10 +87,7 @@ public class ScheduleEntryService {
         List<ScheduleViewModel> listModel = new ArrayList<>();
         for (User user: userList) {
 
-            List<ScheduleEntry> scheduleEntries = repository.findByUser(user)
-                    .stream()
-                    .filter(x -> x.getDate().isAfter(date) && x.getDate().isBefore(date.plusDays(6)))
-                    .collect(Collectors.toList());
+            List<ScheduleEntry> scheduleEntries = repository.findByUserAndDateBetween(user,date,date.plusDays(6));
 
             ScheduleViewModel model = new ScheduleViewModel(date);
 
