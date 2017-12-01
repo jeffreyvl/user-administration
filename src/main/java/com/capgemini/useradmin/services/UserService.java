@@ -61,8 +61,10 @@ public class UserService {
 
         UserViewModel dto = modelMapper.map(user, UserViewModel.class);
 
-        if (user.getRole() != null)
+        if (user.getRole() != null) {
             dto.setRole(user.getRole().getName());
+            dto.setRoleId(user.getRole().getId());
+        }
         return dto;
     }
 
@@ -117,5 +119,10 @@ public class UserService {
         users.forEach(e -> list.add(modelMapper.map(e, UserViewModel.class)));
 
         return list;
+    }
+
+    public Iterable<User> findAll() {
+
+        return repository.findAll();
     }
 }
