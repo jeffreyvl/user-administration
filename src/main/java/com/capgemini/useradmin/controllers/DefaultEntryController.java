@@ -1,12 +1,12 @@
 package com.capgemini.useradmin.controllers;
 
-import com.capgemini.useradmin.model.view.schedule.DefaultEditViewModel;
-import com.capgemini.useradmin.model.view.schedule.DefaultViewModel;
-import com.capgemini.useradmin.services.DefaultEntryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+        import com.capgemini.useradmin.model.view.schedule.DefaultEditViewModel;
+        import com.capgemini.useradmin.model.view.schedule.DefaultViewModel;
+        import com.capgemini.useradmin.services.DefaultEntryService;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.http.HttpStatus;
+        import org.springframework.http.ResponseEntity;
+        import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -24,13 +24,6 @@ public class DefaultEntryController {
     public DefaultViewModel get(@PathVariable long id) {
 
         return service.get(id);
-    }
-
-    @RequestMapping(value = "",method = RequestMethod.POST)
-    public ResponseEntity update(@RequestBody DefaultEditViewModel model) {
-
-        service.add(model);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "",method = RequestMethod.PUT)

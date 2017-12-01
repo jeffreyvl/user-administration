@@ -64,6 +64,7 @@ public class DefaultEntryService {
 
                     repository.save(entry);
                 }
+
                 if (!shift.getValue()) {
                     DefaultEntry defaultEntry = repository.findByUserAndShiftAndDay(user,shift.getKey(),day.getKey());
                     if (defaultEntry != null)
@@ -71,10 +72,5 @@ public class DefaultEntryService {
                 }
             }
         }
-    }
-
-    public void add(DefaultEditViewModel model) {
-
-        save(model);
     }
 }
