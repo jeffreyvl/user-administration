@@ -10,6 +10,15 @@ public class UserViewModel {
     private String email;
     private LocalDate startDate;
     private String role;
+    private long roleId;
+
+    public long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
 
     public long getId() {
         return id;

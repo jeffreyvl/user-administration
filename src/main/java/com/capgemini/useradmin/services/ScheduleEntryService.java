@@ -3,12 +3,15 @@ package com.capgemini.useradmin.services;
 import com.capgemini.useradmin.model.domain.DefaultEntry;
 import com.capgemini.useradmin.model.domain.ScheduleEntry;
 import com.capgemini.useradmin.model.domain.User;
+import com.capgemini.useradmin.model.view.schedule.ScheduleDayEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleDayViewModel;
+import com.capgemini.useradmin.model.view.schedule.ScheduleEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
 import com.capgemini.useradmin.repository.DefaultEntryRepository;
 import com.capgemini.useradmin.repository.ScheduleEntryRepository;
 import com.capgemini.useradmin.repository.UserRepository;
 import com.capgemini.useradmin.util.HelperMethods;
+import com.capgemini.useradmin.util.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,23 +22,21 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
-
+import java.util.Map;
 
 @Service
 public class ScheduleEntryService {
 
     ScheduleEntryRepository repository;
     DefaultEntryRepository defaultEntryRepository;
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
-    public ScheduleEntryService(ScheduleEntryRepository repository, DefaultEntryRepository defaultEntryRepository, UserRepository userRepository) {
+    public ScheduleEntryService(ScheduleEntryRepository repository, DefaultEntryRepository defaultEntryRepository, UserService userService) {
         this.repository = repository;
         this.defaultEntryRepository = defaultEntryRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
-
 
     public void generate(LocalDate date) {
 
@@ -85,7 +86,7 @@ public class ScheduleEntryService {
         LocalDate date = HelperMethods.getDateFirstDay(year, week);
         generateWeekMissingDays(date);
 
-       Iterable<User> userList = userRepository.findAll();
+       Iterable<User> userList = userService.findAll();
 
         List<ScheduleViewModel> listModel = new ArrayList<>();
         for (User user: userList) {
@@ -111,7 +112,7 @@ public class ScheduleEntryService {
         if (repository.countByDate(date) == 0)
             generate(date);
 
-        Iterable<User> userList = userRepository.findAll();
+        Iterable<User> userList = userService.findAll();
         List<ScheduleDayViewModel> listModel = new ArrayList<>();
         for (User user: userList) {
 
@@ -127,6 +128,14 @@ public class ScheduleEntryService {
             listModel.add(model);
         }
         return listModel;
+    }
+
+    public void saveWeek(ScheduleEditViewModel model) {
+
+    }
+
+    public void saveDay(ScheduleDayEditViewModel model) {
+
     }
 
     public void add(ScheduleEntry entity) {
