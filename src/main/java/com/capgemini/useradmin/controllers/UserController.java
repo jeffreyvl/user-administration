@@ -46,7 +46,6 @@ public class UserController {
        return service.get(id);
     }
 
-
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     public ResponseEntity save(@Valid @RequestBody UserEditViewModel model, @PathVariable long id) {
 
@@ -62,9 +61,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public List<UserViewModel> search(@Valid @RequestBody UserViewModel view) {
+    public Page<UserViewModel> search(@Valid @RequestBody UserViewModel view, Pageable pageable) {
 
-        return service.search(view);
+        return service.search(view, pageable);
     }
 
 }

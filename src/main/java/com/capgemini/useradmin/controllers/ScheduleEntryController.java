@@ -1,6 +1,8 @@
 package com.capgemini.useradmin.controllers;
 
+import com.capgemini.useradmin.model.view.schedule.ScheduleDayEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleDayViewModel;
+import com.capgemini.useradmin.model.view.schedule.ScheduleEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
 import com.capgemini.useradmin.services.ScheduleEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.xml.ws.Response;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -47,6 +47,20 @@ public class ScheduleEntryController {
     ResponseEntity generateDay(@RequestParam(value="date", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 
         service.generate(date);
-        return new ResponseEntity((HttpStatus.NO_CONTENT));
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value= "week", method = RequestMethod.PUT)
+    ResponseEntity saveWeek(@RequestBody List<ScheduleEditViewModel> model) {
+
+        service.saveWeek(model);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value="", method=RequestMethod.PUT)
+    ResponseEntity saveDay(@RequestBody List<ScheduleDayEditViewModel> model) {
+
+        service.saveDay(model);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

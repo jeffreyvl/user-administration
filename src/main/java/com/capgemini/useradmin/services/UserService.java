@@ -61,8 +61,10 @@ public class UserService {
 
         UserViewModel dto = modelMapper.map(user, UserViewModel.class);
 
-        if (user.getRole() != null)
+        if (user.getRole() != null) {
             dto.setRole(user.getRole().getName());
+            dto.setRoleId(user.getRole().getId());
+        }
         return dto;
     }
 
@@ -103,19 +105,22 @@ public class UserService {
         repository.delete(id);
     }
 
-    public List<UserViewModel> search(UserViewModel view) {
+    public Page<UserViewModel> search(UserViewModel view, Pageable pageable) {
 
         User user = modelMapper.map(view, User.class);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("id");
+                .withIgnoreCase()
+                .withIgnorePaths("id", "role");
 
         Example<User> example = Example.of(user, matcher);
-        Iterable<User> users = repository.findAll(example);
+        Page<User> users = repository.findAll(example, pageable);
 
-        List<UserViewModel> list = new ArrayList<>();
-        users.forEach(e -> list.add(modelMapper.map(e, UserViewModel.class)));
+        return users.map(e -> this.modelMapper.map(e, UserViewModel.class));
+    }
 
-        return list;
+    public Iterable<User> findAll() {
+
+        return repository.findAll();
     }
 }
