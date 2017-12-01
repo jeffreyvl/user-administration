@@ -9,7 +9,6 @@ import com.capgemini.useradmin.model.view.schedule.ScheduleEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
 import com.capgemini.useradmin.repository.DefaultEntryRepository;
 import com.capgemini.useradmin.repository.ScheduleEntryRepository;
-import com.capgemini.useradmin.repository.UserRepository;
 import com.capgemini.useradmin.util.HelperMethods;
 import com.capgemini.useradmin.util.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,12 +85,12 @@ public class ScheduleEntryService {
         LocalDate date = HelperMethods.getDateFirstDay(year, week);
         generateWeekMissingDays(date);
 
-       Iterable<User> userList = userService.findAll();
+        Iterable<User> userList = userService.findAll();
 
         List<ScheduleViewModel> listModel = new ArrayList<>();
-        for (User user: userList) {
+        for (User user : userList) {
 
-            List<ScheduleEntry> scheduleEntries = repository.findByUserAndDateBetween(user,date,date.plusDays(6));
+            List<ScheduleEntry> scheduleEntries = repository.findByUserAndDateBetween(user, date, date.plusDays(6));
 
             ScheduleViewModel model = new ScheduleViewModel(date);
 
@@ -99,22 +98,23 @@ public class ScheduleEntryService {
             model.setLastName(user.getLastName());
             model.setUserId(user.getId());
 
-            for (ScheduleEntry scheduleEntry: scheduleEntries)
+            for (ScheduleEntry scheduleEntry : scheduleEntries)
                 model.add(scheduleEntry);
+
             listModel.add(model);
         }
 
         return listModel;
     }
 
-    public List<ScheduleDayViewModel> getDay (LocalDate date) {
+    public List<ScheduleDayViewModel> getDay(LocalDate date) {
 
         if (repository.countByDate(date) == 0)
             generate(date);
 
         Iterable<User> userList = userService.findAll();
         List<ScheduleDayViewModel> listModel = new ArrayList<>();
-        for (User user: userList) {
+        for (User user : userList) {
 
             List<ScheduleEntry> scheduleEntries = repository.findByUserAndDate(user, date);
             ScheduleDayViewModel model = new ScheduleDayViewModel(date);
@@ -123,20 +123,65 @@ public class ScheduleEntryService {
             model.setLastName(user.getLastName());
             model.setUserId(user.getId());
 
-            for (ScheduleEntry scheduleEntry: scheduleEntries)
+            for (ScheduleEntry scheduleEntry : scheduleEntries)
                 model.add(scheduleEntry);
             listModel.add(model);
         }
         return listModel;
     }
 
-    public void saveWeek(ScheduleEditViewModel model) {
+    public void saveWeek(List<ScheduleEditViewModel> listModel) {
 
+        for (ScheduleEditViewModel model : listModel) {
+
+            User user = userService.getUser(model.getUserId());
+
+            Map<LocalDate, Map<Shift, Boolean>> elements = model.getScheduleEntries();
+
+            for (Map.Entry<LocalDate, Map<Shift, Boolean>> date : elements.entrySet()) {
+
+                for (Map.Entry<Shift, Boolean> shift : date.getValue().entrySet()) {
+
+                    update(shift,date.getKey(),user);
+                }
+            }
+        }
     }
 
-    public void saveDay(ScheduleDayEditViewModel model) {
+    public void saveDay(List<ScheduleDayEditViewModel> listModel) {
 
+        for (ScheduleDayEditViewModel model : listModel) {
+
+            User user = userService.getUser(model.getUserId());
+
+            Map<Shift, Boolean> elements = model.getScheduleEntries();
+
+
+            for (Map.Entry<Shift, Boolean> shift : elements.entrySet()) {
+
+                update(shift,model.getDate(),user);
+            }
+        }
     }
+
+    private void update(Map.Entry<Shift, Boolean> shift, LocalDate date, User user) {
+
+        if (shift.getValue()) {
+            ScheduleEntry entry = new ScheduleEntry();
+            entry.setDate(date);
+            entry.setShift(shift.getKey());
+            entry.setUser(user);
+
+            repository.save(entry);
+        }
+
+        if (!shift.getValue()) {
+            ScheduleEntry scheduleEntry = repository.findByUserAndShiftAndDate(user, shift.getKey(), date);
+            if (scheduleEntry != null)
+                repository.delete(scheduleEntry.getId());
+        }
+    }
+
 
     public void add(ScheduleEntry entity) {
 
