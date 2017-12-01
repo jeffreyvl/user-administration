@@ -5,17 +5,18 @@ import com.capgemini.useradmin.util.Shift;
 import javax.persistence.*;
 import java.time.DayOfWeek;
 
-@Entity
+@Entity(name = "DefaultEntry")
+@Table(name = "default_entry")
 public class DefaultEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
-
+    @Column(name = "day")
     private DayOfWeek day;
-
+    @Column(name = "shift")
     private Shift shift;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

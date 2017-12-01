@@ -5,15 +5,19 @@ import com.capgemini.useradmin.util.Shift;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "ScheduleEntry")
+@Table(name = "schedule_entry")
 public class ScheduleEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "shift")
     private Shift shift;
 
     @ManyToOne(fetch = FetchType.LAZY)

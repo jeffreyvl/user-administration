@@ -3,13 +3,15 @@ package com.capgemini.useradmin.model.domain;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "Role")
+@Table(name = "role")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name ="id")
     private long id;
-
+    @Column(name="name")
     private String name;
 
     @OneToMany(
