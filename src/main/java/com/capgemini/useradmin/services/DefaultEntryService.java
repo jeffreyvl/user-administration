@@ -73,9 +73,4 @@ public class DefaultEntryService {
             }
         }
     }
-
-    public void add(DefaultEditViewModel model) {
-
-        save(model);
-    }
 }
