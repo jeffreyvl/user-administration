@@ -105,20 +105,17 @@ public class UserService {
         repository.delete(id);
     }
 
-    public List<UserViewModel> search(UserViewModel view) {
+    public Page<UserViewModel> search(UserViewModel view, Pageable pageable) {
 
         User user = modelMapper.map(view, User.class);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("id");
+                .withIgnorePaths("id", "role");
 
         Example<User> example = Example.of(user, matcher);
-        Iterable<User> users = repository.findAll(example);
+        Page<User> users = repository.findAll(example, pageable);
 
-        List<UserViewModel> list = new ArrayList<>();
-        users.forEach(e -> list.add(modelMapper.map(e, UserViewModel.class)));
-
-        return list;
+        return users.map(e -> this.modelMapper.map(e, UserViewModel.class));
     }
 
     public Iterable<User> findAll() {
