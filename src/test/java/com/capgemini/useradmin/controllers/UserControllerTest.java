@@ -56,7 +56,6 @@ public class UserControllerTest {
     }
 
 
-
     @Test
     public void getUser() {
         final long id = 3;
@@ -90,7 +89,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void deleteRole() {
+    public void deleteUser() {
         final long id = 1;
         userController.delete(id);
         ArgumentCaptor<Long> longArg = ArgumentCaptor.forClass(Long.class);

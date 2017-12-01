@@ -110,6 +110,7 @@ public class UserService {
         User user = modelMapper.map(view, User.class);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnoreCase()
                 .withIgnorePaths("id", "role");
 
         Example<User> example = Example.of(user, matcher);
