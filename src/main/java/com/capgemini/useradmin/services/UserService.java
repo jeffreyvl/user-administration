@@ -111,7 +111,7 @@ public class UserService {
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnoreCase()
-                .withIgnorePaths("id", "role");
+                .withIgnorePaths("id");
 
         Example<User> example = Example.of(user, matcher);
         Page<User> users = repository.findAll(example, pageable);
