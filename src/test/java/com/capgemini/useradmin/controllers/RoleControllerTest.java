@@ -15,6 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -92,4 +93,18 @@ public class RoleControllerTest {
         verify(roleService, times(1)).delete(longArg.capture());
         assertTrue(id == longArg.getValue());
     }
+
+    @Test
+    public void searchRole() {
+        RoleViewModel role = new RoleViewModel();
+        roleController.search(role);
+        ArgumentCaptor<RoleViewModel> argument = ArgumentCaptor.forClass(RoleViewModel.class);
+        verify(roleService, times(1)).search(argument.capture());
+        assertTrue(role == argument.getValue());
+    }
 }
+/**
+ @RequestMapping(value = "/search/", method = RequestMethod.POST)
+ public List<RoleViewModel> search(@Valid @RequestBody RoleViewModel view) {
+ return service.search(view);
+ */

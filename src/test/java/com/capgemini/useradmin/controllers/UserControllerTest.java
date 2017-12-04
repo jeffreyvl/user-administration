@@ -96,4 +96,15 @@ public class UserControllerTest {
         verify(userService, times(1)).delete(longArg.capture());
         assertTrue(id == longArg.getValue());
     }
+
+    @Test
+    public void searchRole() {
+        UserViewModel user = new UserViewModel();
+        userController.search(user, pageable);
+        ArgumentCaptor<UserViewModel> argument = ArgumentCaptor.forClass(UserViewModel.class);
+        ArgumentCaptor<Pageable> pageargs = ArgumentCaptor.forClass(Pageable.class);
+        verify(userService, times(1)).search(argument.capture(), pageargs.capture());
+        assertTrue(user == argument.getValue());
+        assertTrue(pageable == pageargs.getValue());
+    }
 }
