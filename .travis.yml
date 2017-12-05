@@ -1,0 +1,14 @@
+language: java
+notifications:
+  email:
+    recipients:
+      - raymond@carpago.nl
+      - jeffrey.van.laarhoven@capgemini.com
+      - aydin.erdas@capgemini.com
+      - chaouki.tiouassiouine@capgemini.com
+      - emiel.van.rossem@capgemini.com
+      - ramon.de.vaan@capgemini.com
+      - twan.rozie@gmail.com
+      - frank.noorloos@capgemini.com
+    on_success: never
+    on_failure: always
