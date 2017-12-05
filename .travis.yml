@@ -10,5 +10,5 @@ notifications:
       - ramon.de.vaan@capgemini.com
       - twan.rozie@gmail.com
       - frank.noorloos@capgemini.com
-    on_success: always
+    on_success: never
     on_failure: always
