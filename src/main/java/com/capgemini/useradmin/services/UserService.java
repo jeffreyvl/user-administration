@@ -89,8 +89,9 @@ public class UserService {
         User user = getUser(id);
 
         Role role = roleRepository.findOne(model.getRoleId());
-        if (role != null && role.getId() != model.getRoleId())
+        if (role != null && role.getId() != user.getRole().getId()) {
             user.setRole(role);
+        }
 
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
