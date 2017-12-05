@@ -13,7 +13,7 @@ public class ScheduleDayViewModel {
     private String firstName;
     private String lastName;
     private LocalDate date;
-
+    private String rolName;
     private Map<Shift, Boolean> scheduleEntries;
 
     public ScheduleDayViewModel(LocalDate date) {
@@ -70,5 +70,13 @@ public class ScheduleDayViewModel {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getRolName() {
+        return rolName;
+    }
+
+    public void setRolName(String rolName) {
+        this.rolName = rolName;
     }
 }

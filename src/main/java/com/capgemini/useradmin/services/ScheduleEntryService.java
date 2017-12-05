@@ -122,6 +122,7 @@ public class ScheduleEntryService {
             model.setFirstName(user.getFirstName());
             model.setLastName(user.getLastName());
             model.setUserId(user.getId());
+            model.setRolName(user.getRole().getName());
 
             for (ScheduleEntry scheduleEntry : scheduleEntries)
                 model.add(scheduleEntry);
