@@ -1,14 +1,12 @@
 package com.capgemini.useradmin.model.view.user;
 
-import java.time.LocalDate;
-
 public class UserViewModel {
 
     private long id;
     private String firstName;
     private String lastName;
     private String email;
-    private LocalDate startDate;
+    private Long startDate;
     private String role;
     private long roleId;
 
@@ -52,11 +50,11 @@ public class UserViewModel {
         this.email = email;
     }
 
-    public LocalDate getStartDate() {
+    public Long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Long startDate) {
         this.startDate = startDate;
     }
 

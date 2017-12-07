@@ -15,7 +15,7 @@ public class UserCreateViewModel {
     @Email(message = "Invalid email address")
     private String email;
     @NotNull
-    private LocalDate startDate;
+    private long startDate;
     private long roleId;
 
     public String getFirstName() {
@@ -42,11 +42,11 @@ public class UserCreateViewModel {
         this.email = email;
     }
 
-    public LocalDate getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 

@@ -21,6 +21,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 
 import java.nio.file.attribute.UserPrincipalLookupService;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
@@ -57,6 +58,7 @@ public class UserServiceTests {
     @Test
     public void testGetUser() {
         when(userRepository.findOne(1L)).thenReturn(user);
+        when(user.getStartDate()).thenReturn(LocalDate.now());
         userService.get(1L);
         verify(userRepository, times(1)).findOne(1L);
     }

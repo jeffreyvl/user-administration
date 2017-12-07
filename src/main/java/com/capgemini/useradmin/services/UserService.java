@@ -8,7 +8,7 @@ import com.capgemini.useradmin.model.view.user.UserEditViewModel;
 import com.capgemini.useradmin.model.view.user.UserViewModel;
 import com.capgemini.useradmin.repository.RoleRepository;
 import com.capgemini.useradmin.repository.UserRepository;
-import org.modelmapper.ModelMapper;
+import com.capgemini.useradmin.util.UserViewModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -16,21 +16,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class UserService {
 
     private RoleRepository roleRepository;
     private UserRepository repository;
-    private ModelMapper modelMapper;
 
     @Autowired
     public UserService(UserRepository repository, RoleRepository roleRepository) {
         this.repository = repository;
         this.roleRepository = roleRepository;
-        modelMapper = new ModelMapper();
     }
 
     public User getUser(long id) {
@@ -46,7 +41,7 @@ public class UserService {
         Page<User> pageOfDomain = repository.findAll(pageable);
 
         Page<UserViewModel> dtoPage = pageOfDomain.map(x -> {
-            UserViewModel dto = this.modelMapper.map(x, UserViewModel.class);
+            UserViewModel dto = UserViewModelMapper.userToViewMap().map(x);
             if (x.getRole() != null)
                 dto.setRole(x.getRole().getName());
             return dto;
@@ -59,7 +54,7 @@ public class UserService {
 
         User user = getUser(id);
 
-        UserViewModel dto = modelMapper.map(user, UserViewModel.class);
+        UserViewModel dto = UserViewModelMapper.userToViewMap().map(user);
 
         if (user.getRole() != null) {
             dto.setRole(user.getRole().getName());
@@ -75,7 +70,7 @@ public class UserService {
 
     public void add(UserCreateViewModel model) {
 
-        User user = modelMapper.map(model, User.class);
+        User user = UserViewModelMapper.createViewToUserMap().map(model);
         Role role = roleRepository.findOne(model.getRoleId());
         if (role == null)
             throw new BadRequestException("No Valid Role.");
@@ -89,8 +84,9 @@ public class UserService {
         User user = getUser(id);
 
         Role role = roleRepository.findOne(model.getRoleId());
-        if (role != null && role.getId() != model.getRoleId())
+        if (role != null && role.getId() != user.getRole().getId()) {
             user.setRole(role);
+        }
 
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
@@ -107,17 +103,22 @@ public class UserService {
 
     public Page<UserViewModel> search(UserViewModel view, Pageable pageable) {
 
-        User user = modelMapper.map(view, User.class);
+        User user = UserViewModelMapper.viewToUserMap().map(view);
+
+        if (user.getRole().getId() == 0) {
+            user.setRole(null);
+        }
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnoreCase()
+                .withIgnoreNullValues()
                 .withIgnorePaths("id");
 
         Example<User> example = Example.of(user, matcher);
         Page<User> users = repository.findAll(example, pageable);
 
         return users.map(e -> {
-            UserViewModel model = this.modelMapper.map(e, UserViewModel.class);
+            UserViewModel model = UserViewModelMapper.userToViewMap().map(e);
             if (e.getRole() != null) {
                 model.setRole(e.getRole().getName());
             }
