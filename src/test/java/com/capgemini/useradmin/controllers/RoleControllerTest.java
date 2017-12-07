@@ -1,7 +1,6 @@
 package com.capgemini.useradmin.controllers;
 
-import com.capgemini.useradmin.exceptions.BadRequestException;
-import com.capgemini.useradmin.model.domain.Role;
+
 import com.capgemini.useradmin.model.view.role.RoleCreateViewModel;
 import com.capgemini.useradmin.model.view.role.RoleEditViewModel;
 import com.capgemini.useradmin.model.view.role.RoleViewModel;
@@ -15,10 +14,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.swing.text.View;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -103,8 +98,3 @@ public class RoleControllerTest {
         assertTrue(role == argument.getValue());
     }
 }
-/**
- @RequestMapping(value = "/search/", method = RequestMethod.POST)
- public List<RoleViewModel> search(@Valid @RequestBody RoleViewModel view) {
- return service.search(view);
- */
