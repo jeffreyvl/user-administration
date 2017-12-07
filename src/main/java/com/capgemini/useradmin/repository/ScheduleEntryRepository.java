@@ -18,4 +18,6 @@ public interface ScheduleEntryRepository extends PagingAndSortingRepository<Sche
     List<ScheduleEntry> findByUserAndDate(User user, LocalDate date);
 
     ScheduleEntry findByUserAndShiftAndDate(User user, Shift shift, LocalDate date);
+
+    Long countByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate);
 }
