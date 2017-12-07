@@ -1,9 +1,6 @@
 package com.capgemini.useradmin.controllers;
 
-import com.capgemini.useradmin.model.view.schedule.ScheduleDayEditViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleDayViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleEditViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
+import com.capgemini.useradmin.model.view.schedule.*;
 import com.capgemini.useradmin.services.ScheduleEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,6 +33,11 @@ public class ScheduleEntryController {
         return service.getDay(date);
     }
 
+    @RequestMapping(value="hours/{year}/{month}", method = RequestMethod.GET)
+    public List<HoursViewModel> getHours(@PathVariable int year, @PathVariable int month) {
+
+        return service.getHours(year, month);
+    }
     @RequestMapping(value = "/reset/{year}/{week}", method = RequestMethod.POST)
     ResponseEntity generateWeek(@PathVariable int year, @PathVariable int week) {
 
