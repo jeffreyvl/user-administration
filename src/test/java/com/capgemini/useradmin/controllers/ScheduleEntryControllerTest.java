@@ -1,9 +1,6 @@
 package com.capgemini.useradmin.controllers;
 
-import com.capgemini.useradmin.model.view.schedule.ScheduleDayEditViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleDayViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleEditViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
+import com.capgemini.useradmin.model.view.schedule.*;
 import com.capgemini.useradmin.services.ScheduleEntryService;
 import com.capgemini.useradmin.util.HelperMethods;
 import org.junit.Test;
@@ -59,6 +56,19 @@ public class ScheduleEntryControllerTest {
         when(scheduleEntryService.getDay(date)).thenReturn(modelList);
         List<ScheduleDayViewModel> modelGetter = scheduleEntryController.getDay(date);
         verify(scheduleEntryService, times(1)).getDay(date);
+        assertTrue(modelGetter.equals(modelList));
+    }
+
+    @Test
+    public void getHours() {
+        final int year = 2012;
+        final int week = 12;
+        List<HoursViewModel> modelList = new ArrayList<>();
+        HoursViewModel model = new HoursViewModel();
+        modelList.add(model);
+        when(scheduleEntryService.getHours(year, week)).thenReturn(modelList);
+        List<HoursViewModel> modelGetter = scheduleEntryController.getHours(year, week);
+        verify(scheduleEntryService, times(1)).getHours(year, week);
         assertTrue(modelGetter.equals(modelList));
     }
 
