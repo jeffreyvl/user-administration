@@ -1,13 +1,11 @@
 package com.capgemini.useradmin.controllers;
 
-import com.capgemini.useradmin.model.domain.ScheduleEntry;
 import com.capgemini.useradmin.model.view.schedule.ScheduleDayEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleDayViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleEditViewModel;
 import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
 import com.capgemini.useradmin.services.ScheduleEntryService;
 import com.capgemini.useradmin.util.HelperMethods;
-import com.capgemini.useradmin.util.Shift;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -15,17 +13,13 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.http.ResponseEntity;
-
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScheduleEntryControllerTest {
@@ -97,7 +91,6 @@ public class ScheduleEntryControllerTest {
         scheduleEntryController.saveWeek(modelList);
         verify(scheduleEntryService, times(1)).saveWeek(captor.capture());
         assertTrue(modelList == captor.getValue());
-
     }
 
     @Test
