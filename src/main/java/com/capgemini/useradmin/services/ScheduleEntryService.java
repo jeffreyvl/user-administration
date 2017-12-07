@@ -3,10 +3,7 @@ package com.capgemini.useradmin.services;
 import com.capgemini.useradmin.model.domain.DefaultEntry;
 import com.capgemini.useradmin.model.domain.ScheduleEntry;
 import com.capgemini.useradmin.model.domain.User;
-import com.capgemini.useradmin.model.view.schedule.ScheduleDayEditViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleDayViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleEditViewModel;
-import com.capgemini.useradmin.model.view.schedule.ScheduleViewModel;
+import com.capgemini.useradmin.model.view.schedule.*;
 import com.capgemini.useradmin.repository.DefaultEntryRepository;
 import com.capgemini.useradmin.repository.ScheduleEntryRepository;
 import com.capgemini.useradmin.util.HelperMethods;
@@ -16,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -187,5 +185,38 @@ public class ScheduleEntryService {
     public void add(ScheduleEntry entity) {
 
         repository.save(entity);
+    }
+
+    public List<HoursViewModel> getHours(int year, int month) {
+
+        LocalDate firstDay = LocalDate.of(year,month,1);
+
+        int numberOfDays =  Month.values()[month].length(firstDay.isLeapYear());
+        LocalDate lastDay = firstDay.plusDays(numberOfDays-1);
+        LocalDate today = LocalDate.now();
+
+        if (today.isAfter(lastDay))
+            lastDay = today;
+
+        List<HoursViewModel> modelList = new ArrayList<HoursViewModel>();
+
+        Iterable<User> userList = userService.findAll();
+
+        for (User user : userList) {
+            int hours = 0;
+            HoursViewModel model = new HoursViewModel();
+            Iterable<ScheduleEntry> scheduleEntries = repository.findByUserAndDateBetween(user,firstDay,lastDay);
+
+            for (ScheduleEntry scheduleEntry: scheduleEntries) {
+                hours += scheduleEntry.getShift().getDuration();
+            }
+            model.setHours(hours);
+            model.setFirstName(user.getFirstName());
+            model.setLastName(user.getLastName());
+
+            modelList.add(model);
+        }
+
+        return modelList;
     }
 }
