@@ -29,14 +29,14 @@ public class Seeder {
     private ScheduleEntryService scheduleEntryService;
 
     public void seedUsers(){
-        createUser("Kok","Twan","Rozay", LocalDate.now().minusDays(2), DayOfWeek.MONDAY, Shift.AFTERNOON, Shift.AFTERNOON, LocalDate.now().minusDays(2));
-        createUser("Astronomically small Kok","Ramon","Vaan de", LocalDate.now().minusDays(10), DayOfWeek.SATURDAY, Shift.MORNING, Shift.AFTERNOON, LocalDate.now().minusDays(2));
-        createUser("Big Cock","Aydin","Erdas", LocalDate.now().minusDays(1), DayOfWeek.THURSDAY, Shift.NIGHT, Shift.MORNING, LocalDate.now().minusDays(2));
-        createUser("Massive Kok","Emiel","Rossem van", LocalDate.now().minusDays(1), DayOfWeek.TUESDAY, Shift.AFTERNOON, Shift.EVENING, LocalDate.now().minusDays(2));
-        createUser("Kok","Frank","Noorloos", LocalDate.now().minusDays(6), DayOfWeek.WEDNESDAY, Shift.NIGHT, Shift.NIGHT, LocalDate.now().minusDays(2));
+        createUser("Receptionist","Twan","Rozay", LocalDate.now().minusDays(2), DayOfWeek.MONDAY, Shift.AFTERNOON, Shift.AFTERNOON, LocalDate.now().minusDays(2));
+        createUser("Manager","Ramon","Vaan de", LocalDate.now().minusDays(10), DayOfWeek.SATURDAY, Shift.MORNING, Shift.AFTERNOON, LocalDate.now().minusDays(2));
+        createUser("Cleaner","Aydin","Erdas", LocalDate.now().minusDays(1), DayOfWeek.THURSDAY, Shift.NIGHT, Shift.MORNING, LocalDate.now().minusDays(2));
+        createUser("Entertainer","Emiel","Rossem van", LocalDate.now().minusDays(1), DayOfWeek.TUESDAY, Shift.AFTERNOON, Shift.EVENING, LocalDate.now().minusDays(2));
+        createUser("Assistant Manager","Frank","Noorloos", LocalDate.now().minusDays(6), DayOfWeek.WEDNESDAY, Shift.NIGHT, Shift.NIGHT, LocalDate.now().minusDays(2));
         createUser("Kok","Jeffrey","Laarhoven van", LocalDate.now().minusDays(9), DayOfWeek.SUNDAY, Shift.AFTERNOON, Shift.MORNING, LocalDate.now().minusDays(2));
-        createUser("G","Chaouki","Tiouassiouine", LocalDate.now().minusDays(7), DayOfWeek.MONDAY, Shift.EVENING, Shift.NIGHT, LocalDate.now().minusDays(2));
-        createUser("Manager","Raymond","Lomman", LocalDate.now().minusDays(4), DayOfWeek.MONDAY, Shift.EVENING, Shift.MORNING, LocalDate.now().minusDays(2));
+        createUser("Trader","Chaouki","Tiouassiouine", LocalDate.now().minusDays(7), DayOfWeek.MONDAY, Shift.EVENING, Shift.NIGHT, LocalDate.now().minusDays(2));
+        createUser("CEO","Raymond","Lomman", LocalDate.now().minusDays(4), DayOfWeek.MONDAY, Shift.EVENING, Shift.MORNING, LocalDate.now().minusDays(2));
     }
 
     public void createUser(String roleName, String firstName, String lastName, LocalDate startDate, DayOfWeek dayOfWeek, Shift shiftDefault, Shift shiftSchedule, LocalDate startSchedule){
